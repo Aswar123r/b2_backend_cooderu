@@ -39,7 +39,7 @@ app.post('/privince',(req, res) => {
     fs.readFile('./province.json', 'utf-8', (err, data) => {
         let provinceList = JSON.parse(data)
         provinceList.push(req.body)
-        fs.fstatSync.writeFile('./province.json', JSON.stringify(provinceList), err => {
+        fs.writeFile('./province.json', JSON.stringify(provinceList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
@@ -52,19 +52,19 @@ app.post('/privince',(req, res) => {
 // update 
 app.put('/privince/:id',(req, res) => {
     let idProvince = req.params.id
-    const {name, alt_name, latitude, longitude} = req.bdy
+    const {name, alt_name, latitude, longitude} = req.body
     fs.readFile('./province.json', 'utf-8', (err, data) => {
         let provinceList = JSON.parse(data)
         for (province of provinceList){
             if(province.id == idProvince) {
-                provinces.name = name
+                province.name = name
                 province.alt_name = alt_name
                 province.latitude = latitude
                 province.longitude = longitude
                 break
             }
         }
-        fs.fstatSync.writeFile('./province.json', JSON.stringify(provinceList), err => {
+        fs.writeFile('./province.json', JSON.stringify(provinceList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
@@ -75,7 +75,7 @@ app.put('/privince/:id',(req, res) => {
     })
 })
 //delete
-app.put('/privince/:id',(req, res) => {
+app.delete('/privince/:id',(req, res) => {
     let idProvince = req.params.id
     fs.readFile('./province.json', 'utf-8', (err, data) => {
         let provinceList = JSON.parse(data)
@@ -87,7 +87,7 @@ app.put('/privince/:id',(req, res) => {
             }
         }
         provinceList.splice(indexProvince, 1)
-        fs.fstatSync.writeFile('./province.json', JSON.stringify(provinceList), err => {
+        fs.writeFile('./province.json', JSON.stringify(provinceList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
@@ -111,7 +111,7 @@ app.post('/regancy',(req, res) => {
     fs.readFile('./regency.json', 'utf-8', (err, data) => {
         let regancyList = JSON.parse(data)
         regancyList.push(req.body)
-        fs.fstatSync.writeFile('./regency.json', JSON.stringify(regancyList), err => {
+        fs.writeFile('./regency.json', JSON.stringify(regancyList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
@@ -136,7 +136,7 @@ app.put('/regency/:id',(req, res) => {
                 break
             }
         }
-        fs.fstatSync.writeFile('./regency.json', JSON.stringify(regencyList), err => {
+        fs.writeFile('./regency.json', JSON.stringify(regencyList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
@@ -147,7 +147,7 @@ app.put('/regency/:id',(req, res) => {
     })
 })
 //delete
-app.put('/regency/:id',(req, res) => {
+app.delete('/regency/:id',(req, res) => {
     let idRegency = req.params.id
     fs.readFile('./regency.json', 'utf-8', (err, data) => {
         let regencyList = JSON.parse(data)
@@ -159,7 +159,7 @@ app.put('/regency/:id',(req, res) => {
             }
         }
        regencyList.splice(indexRegency, 1)
-        fs.fstatSync.writeFile('./province.json', JSON.stringify(provinceList), err => {
+        fs.writeFile('./province.json', JSON.stringify(provinceList), err => {
             if (err) {
               console.error(err);
               res.status(500).send("Internal Server")
