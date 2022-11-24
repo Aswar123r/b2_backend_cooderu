@@ -93,7 +93,8 @@ app.put('/privince/:id',(req, res) => {
               res.status(500).send("Internal Server")
             }
 
-            res.status(200).send("Success to delete Province")
+            res.status(200).send("Success to delete Province.")
+
         })
     })
 })
