@@ -45,6 +45,15 @@ class ModelProvince {
             }
             return false
     }
+
+    static byName(name) {
+        let provinceList = fs.readFileSync('./province.json', 'utf-8')
+        provinceList = JSON.parse(provinceList)
+        for (let province of provinceList) {
+                if(province.name == name || province.alt_name == name) return province
+            }
+            return false
+    }
 }
 
 module.exports = ModelProvince

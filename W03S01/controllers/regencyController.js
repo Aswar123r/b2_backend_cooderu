@@ -1,4 +1,5 @@
 const Model = require('../models/regencyModel')
+const ModelProvince = require('../models/provinceModel')
 
 
 class RegencyController {
@@ -29,11 +30,32 @@ class RegencyController {
     }
     static getById (req, res) {
         const {id}= req.params
-        console.log(id)
         const Regency = Model.byId(id)
         if(Regency) return res.status(200).json(Regency)
         return res.status(400).send("Internar Server Error")
+    }
 
+    static findRegenciesByProvinceName(req, res) {
+        const Province = ModelProvince.byName(req.body.name)
+        const Regancy = Model.byProvinceId(Province.id)
+        if(Regancy) return res.status(200).json(Regancy)
+        return res.status(400).send("NOT_FOUND")
+    }
+
+    static findRegencyWithSizeWords (req, res) {
+        const allRegency = Model.All()
+        let regencyWithSizeWords = []
+        if(allRegency){
+            for (let Regency of allRegency){
+                let withSize = Regancy.name.split(' ')
+                if(withSize.length >= req.paramas.size){
+                    regencyWithSizeWords.pop(Regency)
+                }
+            }
+            return res.status(200).json(regencyWithSizeWords)
+        }
+
+        return res.status(400).send("Internar Server Error")
     }
 }
 

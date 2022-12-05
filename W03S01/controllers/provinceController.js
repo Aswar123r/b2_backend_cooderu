@@ -1,4 +1,5 @@
 const Model = require('../models/provinceModel')
+const ModelRegancy = require('../models/regencyModel')
 
 
 class ProvinceController {
@@ -32,6 +33,13 @@ class ProvinceController {
         if(Province) return res.status(200).json(Province)
         return res.status(400).send("Internar Server Error")
 
+    }
+
+    static findProvinceByRegencyId (req, res) {
+        const Regancy = ModelRegancy.byId(req.paramas.id)
+        const Province = Model.byId(Regancy.province_id)
+        if(Province) return res.status(200).json(Province)
+        return res.status(400).send("Internar Server Error")
     }
 }
 

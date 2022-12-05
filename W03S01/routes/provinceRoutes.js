@@ -6,5 +6,6 @@ Router.put('/:id', Province.Update)
 Router.delete('/:id', Province.Delete)
 Router.get('/', Province.getAll)
 Router.get('/:id', Province.getById)
+Router.get('findProvinceByRegencyId/:id', Province.findProvinceByRegencyId)
 
 module.exports = Router

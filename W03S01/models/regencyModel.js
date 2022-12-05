@@ -45,6 +45,24 @@ class ModelRegancy {
             }
             return false
     }
+
+    static byName(name) {
+        let regencyList = fs.readFileSync('./regency.json', 'utf-8')
+        regencyList = JSON.parse(regencyList)
+        for (let regencie of regancyList) {
+                if(regencie.name == name || regencie.alt_name == name) return regencie
+            }
+            return false
+    }
+
+    static byProvinceId(province_id) {
+        let regencyList = fs.readFileSync('./regency.json', 'utf-8')
+        regencyList = JSON.parse(regencyList)
+        for (let regencie of regancyList) {
+                if(regencie.province_id = province_id) return regencie
+            }
+            return false
+    }
 }
 
 module.exports = ModelRegancy
