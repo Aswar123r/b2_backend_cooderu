@@ -9,5 +9,5 @@ app.use(express.json())
 app.use('/regency', Regency)
 app.use('/province', Province)
 
-console.log("App running on port 3000")
+console.log("App running on port 3000 j")
 app.listen(3000);
