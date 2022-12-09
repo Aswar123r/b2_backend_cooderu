@@ -1,88 +1,79 @@
-const pool = require('../config/db')
+const Model = require('../models')
 
 class RegancyController {
     static async create (req, res) {
         const {province_id, name, alt_name, latitude, longitude} = req.body
-        await db
-        .query(`insert into regancy (province_id, name, alt_name, latitude, longitude) values($1, $2, $3, $4, $5')`,
-        [province_id, name, alt_name, latitude, longitude])
-        .then((result) => {
-          res.status(200).json({
+        try{
+          const createRegancy = await Model.Regancy.create({province_id : province_id, name : name, alt_name : alt_name, latitude : latitude, longitude : longitude})
+          if(createRegancy) return res.status(200).json({
             message : 'Regancy successfully created',
           })  
-        }).catch((err) => {
+        }catch(err){
             console.log(err)
             res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
-        });
+        }
     }
 
     static async update (req, res) {
         const {id} = req.params
         const {name, alt_name, latitude, longitude} = req.body
-        await db
-        .query(`update regancy set name = $1, alt_name = $2, latitude = $3, longitude = $4 where id = $5`,
-        [name, alt_name, latitude, longitude, id])
-        .then((result) => {
-          res.status(200).json({
+         try{
+          const updateRegancy= await Model.Regancy.update({name : name, alt_name : alt_name, latitude : latitude, longitude : longitude}, {where : {id : id}})
+          if(updateRegancy) return res.status(200).json({
             message : 'Regancy successfully updated',
           })  
-        }).catch((err) => {
+        }catch(err){
             console.log(err)
             res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
-        });
+        }
     }
 
     static async delete (req, res) {
         const {id} = req.params
-        await db
-        .query(`delete from regancy where id = $1`,
-        [id])
-        .then((result) => {
-          res.status(200).json({
+         try{
+          await Model.Regancy.destroy({where : {id : id}})
+          return res.status(200).json({
             message : 'Regancy successfully delete',
-          })  
-        }).catch((err) => {
+          }) 
+        }catch(err){
             console.log(err)
             res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
-        });
+        }
     }
 
     static async getAll (req, res) {
-        await db
-        .query(`select * from regancy order by id`)
-        .then((result) => {
-          res.status(200).json({
-            data : result.rows,
+         try{
+          const Regancy = await Model.Regancy.findAll()
+          return res.status(200).json({
+            data : Regancy,
           })  
-        }).catch((err) => {
+        }catch(err){
             console.log(err)
             res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
-        });
+        }
     }
 
     static async getById (req, res) {
         const {id} = req.params
-        await db
-        .query(`select * from regancy where id = $1`,
-        [id])
-        .then((result) => {
-          res.status(200).json({
-            data : result.rows,
+         try{
+          const Regancy = await Model.Regancy.findOne({where : {id : id}})
+          if(Province) return res.status(200).json({
+            data : Regancy,
           })  
-        }).catch((err) => {
+        }catch(err){
             console.log(err)
             res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
-        });
+        }
     }
 }
-module.exports = RegancyController 
+module.exports = RegancyController
