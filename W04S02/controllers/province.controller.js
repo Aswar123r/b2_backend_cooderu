@@ -49,7 +49,13 @@ class ProvinceController {
 
     static async getAll (req, res) {
          try{
-          const Province = await Model.Province.findAll()
+          const Province = await Model.Province.findAll({
+            include : [
+              {
+                model : Model.Regancy
+              }
+            ]
+          })
           return res.status(200).json({
             data : Province,
           })  
