@@ -13,10 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.User, {
         foreignKey : 'user_id'
-      })
+      });
       this.belongsTo(models.Photo, {
         foreignKey : 'photo_id'
-      })
+      });
     }
   }
   Comment.init({

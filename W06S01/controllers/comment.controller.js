@@ -6,6 +6,7 @@ class CommentControllers {
         const {id} = req.user
         Comment.create({photo_id : photo_id, comment : comment, user_id : id})
         .then((result) => {
+            console.log("assss")
             return res.status(201).json(result)
         }).catch((err) => {
             console.log(err)

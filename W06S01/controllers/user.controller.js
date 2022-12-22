@@ -20,10 +20,11 @@ class UserControllers {
         const {email, password} = req.body
         User.findOne({where : {email : email}})
         .then(async (result) => {
+            console.log(result)
             if(!result) return res.status(400).json({
                 message : 'User Not Found'
             })
-            const match = compare(password, result.password)
+            const match = compare(result.password, password)
             if(match) return res.status(400).json({
                 message : 'User and password is not match'
             })

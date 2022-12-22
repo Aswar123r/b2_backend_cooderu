@@ -16,8 +16,8 @@ class PhtoControllers {
         const {photoId} = req.params
         const {id} = req.user
         Photo.update({caption : caption, url : url},{where : {id : photoId, user_id : id}})
-        .then((result) => {
-            return res.status(200).json(result)
+        .then(() => {
+            return res.status(200).json("photo successfully has deleted")
         }).catch((err) => {
             console.log(err)
                 return res.status(500).json({message : 'INTERNAL SERVER ERROR'})
@@ -38,7 +38,7 @@ class PhtoControllers {
         })
     }
 
-    static async byId (req, re) {
+    static async byId (req, res) {
         const {photoId} =req.params
         Photo.findByPk(photoId, {
             include : [
